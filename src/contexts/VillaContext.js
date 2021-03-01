@@ -65,8 +65,8 @@ const VillasContextProvider = ({ children }) => {
     }
 
     const addVilla = async (newVilla) => {
-        await axios.post('${API}/villas', newVilla)
-        getVillas('${API}/villas?_limit=3')
+        await axios.post(`${API}/villas`, newVilla)
+        getVillas(`${API}/villas?_limit=3`)
     }
 
     const villaDetail = async (id) => {
