@@ -5,6 +5,7 @@ import VillaCard from './VillaCard';
 import { useHistory } from 'react-router-dom';
 import ProductsPagination from '../Pagination/ProductsPagination';
 import './MainCards/MainList.css';
+import { API } from '../../helpers/constants';
 
 
 
@@ -23,7 +24,7 @@ export default function VillaList({ }) {
   }, [history.location.search])
 
   useEffect(() => {
-    getVillas(`http://localhost:8000/villas?_limit=3&_page=${page}`)
+    getVillas(`${API}/villas?_limit=3&_page=${page}`)
   }, [page])
 
   const onPaginationChange = (e, value) => {
@@ -38,7 +39,7 @@ export default function VillaList({ }) {
         {
           villas.map(item => (
             <Grid key={item.id} item xs={12} sm={6} lg={4}>
-              <VillaCard data={item} url={`http://localhost:8000/villas?_limit=3&_page=${page}`} />
+              <VillaCard data={item} url={`${API}/villas?_limit=3&_page=${page}`} />
             </Grid>
           ))
         }

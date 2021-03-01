@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react'
 import axios from 'axios'
+import { API } from '../helpers/constants'
 
 export const villasContext = React.createContext()
 
@@ -64,12 +65,12 @@ const VillasContextProvider = ({ children }) => {
     }
 
     const addVilla = async (newVilla) => {
-        await axios.post('http://localhost:8000/villas', newVilla)
-        getVillas('http://localhost:8000/villas?_limit=3')
+        await axios.post('${API}/villas', newVilla)
+        getVillas('${API}/villas?_limit=3')
     }
 
     const villaDetail = async (id) => {
-        let { data } = await axios(`http://localhost:8000/villas/${id}`)
+        let { data } = await axios(`${API}/villas/${id}`)
 
         dispatch({
             type: "DETAIL_VILLA",
@@ -78,7 +79,7 @@ const VillasContextProvider = ({ children }) => {
     }
     const editVilla = async (id) => {
         console.log(id)
-        let { data } = await axios(`http://localhost:8000/villas/${id}`)
+        let { data } = await axios(`${API}/villas/${id}`)
         console.log('data: ', data);
         dispatch({
             type: "EDIT_VILLA",
@@ -88,17 +89,17 @@ const VillasContextProvider = ({ children }) => {
     }
 
     const saveNewEditVilla = async (newEditVilla) => {
-        await axios.patch(`http://localhost:8000/villas/${newEditVilla.id}`, newEditVilla)
-        getVillas('http://localhost:8000/villas?_limit=3')
+        await axios.patch(`${API}/villas/${newEditVilla.id}`, newEditVilla)
+        getVillas(`${API}/villas?_limit=3`)
     }
 
     const deleteVilla = async (id, url) => {
-        await axios.delete(`http://localhost:8000/villas/${id}`)
+        await axios.delete(`${API}/villas/${id}`)
         getVillas(url)
     }
 
     const getFavoriteId = async (id) => {
-        let { data } = await axios(`http://localhost:8000/villas/${id}`)
+        let { data } = await axios(`${API}/villas/${id}`)
         dispatch({
             type: "FAVO_VILLA",
             payload: data

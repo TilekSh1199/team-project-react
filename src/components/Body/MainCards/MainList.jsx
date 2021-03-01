@@ -12,6 +12,7 @@ import { villasContext } from '../../../contexts/VillaContext';
 import MainCard from './MainCard';
 import ProductsPagination from '../../Pagination/ProductsPagination';
 import './MainList.css'
+import { API } from '../../../helpers/constants';
 
 
 const BootstrapInput = withStyles((theme) => ({
@@ -105,9 +106,9 @@ export default function MainList({ }) {
 
   useEffect(() => {
     if(filter){
-      getVillas(`http://localhost:8000/villas?_limit=3&_page=${page}&q=${inpSearch}&place=${filter}`)
+      getVillas(`${API}/villas?_limit=3&_page=${page}&q=${inpSearch}&place=${filter}`)
     }else {
-      getVillas(`http://localhost:8000/villas?_limit=3&_page=${page}&q=${inpSearch}`)
+      getVillas(`${API}/villas?_limit=3&_page=${page}&q=${inpSearch}`)
         }
   }, [page, inpSearch, filter])
 

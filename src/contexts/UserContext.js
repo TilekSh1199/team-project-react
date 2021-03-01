@@ -29,7 +29,7 @@ const UserContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE)
 
   const getUsers = async () => {
-    const { data } = await axios('http://localhost:8000/users')
+    const { data } = await axios('${API}/users')
     console.log(data);
     dispatch({
       type: "GET_USERS",
@@ -41,7 +41,7 @@ const UserContextProvider = ({ children }) => {
   const addUser = async (newUser) => {
     console.log(newUser)
     console.log("user Reg")
-    await axios.post('http://localhost:8000/users', newUser)
+    await axios.post('${API}/users', newUser)
     getUsers()
   }
 

@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react'
 import axios from 'axios'
+import { API } from '../helpers/constants'
 
 export const commentContext = React.createContext()
 
@@ -23,7 +24,7 @@ const CommentContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE)
 
   const getComments = async (idVilla) => {
-    const { data } = await axios(`http://localhost:8000/comments?villaID=${idVilla}`)
+    const { data } = await axios(`${API}/comments?villaID=${idVilla}`)
     dispatch({
       type: "GET_COMMENTS",
       payload: data
@@ -32,7 +33,7 @@ const CommentContextProvider = ({ children }) => {
   }
 
   const addComment = async (newComment) => {
-    await axios.post('http://localhost:8000/comments', newComment)
+    await axios.post(`${API}/comments`, newComment)
     getComments(newComment.villaID)
  
   }

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useReducer } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API } from '../helpers/constants';
 
 export const cartContext = React.createContext()
 
@@ -35,7 +36,7 @@ const CartContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, INIT_STATE)
 
     const getVillasInCart = async () => {
-        const { data } = await axios('http://localhost:8000/cart')
+        const { data } = await axios(`${API}/cart`)
         dispatch({
             type: "SHOW_VILLAS_IN_CART",
             payload: data
@@ -43,13 +44,13 @@ const CartContextProvider = ({ children }) => {
     }
 
     const getVillaById = async (id) => {
-        const { data } = await axios(`http://localhost:8000/villas/${id}`)
+        const { data } = await axios(`${API}/villas/${id}`)
         addToCard(data)
     }
 
     const addToCard = async (newVillaToCart) => {
         try {
-            await axios.post('http://localhost:8000/cart', newVillaToCart)
+            await axios.post(`${API}/cart`, newVillaToCart)
             getVillasInCart()
         }
         catch (e) {
@@ -62,7 +63,7 @@ const CartContextProvider = ({ children }) => {
     }
 
     const deleteVilla = async (id) => {
-        await axios.delete(`http://localhost:8000/cart/${id}`)
+        await axios.delete(`${API}/cart/${id}`)
         getVillasInCart()
     }
 
